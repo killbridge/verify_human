@@ -5,7 +5,11 @@ module VerifyHuman
   # namespace changes.
   class Engine < ::Rails::Engine
     initializer "verify_human.assets" do |app|
-      app.config.assets.paths << root.join("app/assets/javascripts") if app.config.respond_to?(:assets)
+      if app.config.respond_to?(:assets)
+        app.config.assets.paths << root.join("app/assets/javascripts")
+        # Sprockets needs an explicit precompile entry; Propshaft ignores this.
+        app.config.assets.precompile += %w[verify_human/turnstile_controller.js] if app.config.assets.respond_to?(:precompile)
+      end
     end
 
     # Pinned under controllers/ so stimulus-loading's lazyLoadControllersFrom
