@@ -59,9 +59,10 @@ module HumanVerification
       req.options.timeout = 3
     end
 
-    # Cloudflare calls the per-widget name "action" in its API.
+    # Cloudflare calls the per-widget name "action" in its API. Its testing
+    # keys (development) answer without one, flagged in the metadata.
     data = JSON.parse(response.body)
-    data["success"] && (expected_name.nil? || data["action"] == expected_name)
+    data["success"] && (expected_name.nil? || data["action"] == expected_name || data.dig("metadata", "result_with_testing_key") == true)
   rescue Faraday::Error, JSON::ParserError => error
     Rails.error.report(error)
     true # Fail open: never lock users out because Cloudflare is unreachable
