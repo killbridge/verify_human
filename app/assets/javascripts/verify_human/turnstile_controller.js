@@ -29,7 +29,7 @@ function loadTurnstile() {
 export default class extends Controller {
   static values = { siteKey: String, action: String, autoSubmit: Boolean }
 
-  async connect() {
+  connect() {
     this.disconnected = false
     // Turbo must never snapshot a rendered widget: restoring one leaves stale
     // iframe markup in the container, and rendering into a non-empty container
@@ -37,10 +37,29 @@ export default class extends Controller {
     this.clearBeforeCache = () => this.reset()
     document.addEventListener("turbo:before-cache", this.clearBeforeCache)
 
+    // A Turbo morph (page refresh, or a form re-rendered with 422 on a page
+    // using turbo_refreshes_with :morph) strips the widget's markup but keeps
+    // this controller connected, and the token it held is already spent.
+    this.renderAfterMorph = (event) => {
+      if (event.target === this.element) this.render()
+    }
+    this.element.addEventListener("turbo:morph-element", this.renderAfterMorph)
+
+    this.render()
+  }
+
+  disconnect() {
+    this.disconnected = true
+    document.removeEventListener("turbo:before-cache", this.clearBeforeCache)
+    this.element.removeEventListener("turbo:morph-element", this.renderAfterMorph)
+    this.reset()
+  }
+
+  async render() {
     await loadTurnstile()
     if (this.disconnected || !window.turnstile) return
 
-    this.element.replaceChildren() // defense against an already-cached snapshot
+    this.reset() // defense against an already-cached snapshot or a morphed container
     this.widgetId = window.turnstile.render(this.element, {
       sitekey: this.siteKeyValue,
       action: this.actionValue,
@@ -54,12 +73,6 @@ export default class extends Controller {
         return true
       }
     })
-  }
-
-  disconnect() {
-    this.disconnected = true
-    document.removeEventListener("turbo:before-cache", this.clearBeforeCache)
-    this.reset()
   }
 
   tokenReceived() {

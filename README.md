@@ -54,7 +54,7 @@ Create Managed-mode (and optionally invisible-mode) widgets in the Cloudflare da
 
 - Fails open on Cloudflare outages (2s/3s timeouts, under a 20s rack-timeout budget); a blank token is rejected without an HTTP call.
 - The siteverify `action` is enforced per form name: a token minted on one widget can't be spent on another endpoint.
-- The Stimulus controller is Turbo-safe: container cleared around Turbo caching (TurnstileError 300030), script-load `onerror` recovery, no render-after-disconnect.
+- The Stimulus controller is Turbo-safe: container cleared around Turbo caching (TurnstileError 300030), script-load `onerror` recovery, no render-after-disconnect, and a fresh widget after a Turbo morph (e.g. a form re-rendered with 422 on a page using `turbo_refreshes_with method: :morph`).
 - Users who block challenges.cloudflare.com cannot pass (fail closed by nature of CAPTCHAs) -- keep failure paths friendly.
 
 ## Tests
