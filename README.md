@@ -78,7 +78,7 @@ stub_human_verification_outage
 
 ## Contributing
 
-Bug reports are welcome as [GitHub issues](https://github.com/killbridge/verify_human/issues). I don't accept pull requests: the gem stays as opinionated as it is, so please fork it if you want it to work differently.
+Bug reports are welcome as [GitHub issues](https://github.com/marckohlbrugge/verify_human/issues). I don't accept pull requests: the gem stays as opinionated as it is, so please fork it if you want it to work differently.
 
 ## Releasing
 
