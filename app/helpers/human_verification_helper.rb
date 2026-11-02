@@ -4,7 +4,7 @@ module HumanVerificationHelper
   # Cloudflare issues a token.
   # With invisible: true, an invisible-mode widget runs instead: it never
   # shows UI, and when it cannot pass silently the form simply posts without
-  # a token and the interstitial takes over. The paired hidden field tells
+  # a token and the app's failure path takes over. The paired hidden field tells
   # the server which widget's secret to verify against.
   def human_verification_tag(name = nil, auto_submit: false, invisible: false, **options)
     return unless human_verification_enabled?

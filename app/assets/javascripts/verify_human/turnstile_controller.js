@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Renders a Cloudflare Turnstile widget. Invisible for most visitors
 // (appearance: interaction-only); only shows a checkbox when Cloudflare
 // requires interaction. With autoSubmit, the surrounding form is submitted
-// as soon as a token is issued (used by the apply interstitial).
+// as soon as a token is issued.
 let scriptPromise
 
 function loadTurnstile() {

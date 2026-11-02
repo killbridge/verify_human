@@ -37,10 +37,9 @@ module HumanVerification
     %i[site_key secret_key].all? { |key| Rails.application.credentials.dig(:turnstile, key).present? }
   end
 
-  # Tokens are widget-specific: the job page runs an invisible-mode widget,
-  # the interstitial and auth forms the managed one. The form says which one
-  # minted the token (spoofing the param just fails verification against the
-  # wrong secret).
+  # Tokens are widget-specific: a page may run the invisible-mode widget while
+  # other forms run the managed one. The form says which one minted the token
+  # (spoofing the param just fails verification against the wrong secret).
   def turnstile_secret_key
     key = (params[:cf_turnstile_widget] == "invisible") ? :invisible_secret_key : :secret_key
     Rails.application.credentials.dig(:turnstile, key)

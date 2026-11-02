@@ -1,6 +1,14 @@
 # verify_human
 
-Human verification for Rails forms. Cloudflare Turnstile under the hood; provider-agnostic API on the surface. Extracted from wip.co, betalist.com, and startup.jobs after a multi-agent review hardened the shared implementation.
+Human verification for Rails forms. Cloudflare Turnstile under the hood; provider-agnostic API on the surface.
+
+This is an opinionated gem: it does human verification the way I like it in my own Rails apps. It's shared in case that way suits you too, not as a general-purpose library that tries to fit every setup.
+
+## Installation
+
+```ruby
+gem "verify_human", github: "killbridge/verify_human"
+```
 
 ## Usage
 
@@ -68,12 +76,20 @@ stub_human_verification(success: true, action: "sign_in")
 stub_human_verification_outage
 ```
 
+## Contributing
+
+Bug reports are welcome as [GitHub issues](https://github.com/killbridge/verify_human/issues). I don't accept pull requests: the gem stays as opinionated as it is, so please fork it if you want it to work differently.
+
 ## Releasing
 
-Bump `VerifyHuman::VERSION`, tag `vX.Y.Z`, push the tag. GitHub Actions publishes to GitHub Packages. Apps consume via:
+Bump `VerifyHuman::VERSION`, tag `vX.Y.Z`, push the tag. GitHub Actions publishes to GitHub Packages, where my own apps consume it via:
 
 ```ruby
 source "https://rubygems.pkg.github.com/killbridge" do
   gem "verify_human"
 end
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).
