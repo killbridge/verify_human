@@ -7,7 +7,7 @@ This is an opinionated gem: it does human verification the way I like it in my o
 ## Installation
 
 ```ruby
-gem "verify_human", github: "killbridge/verify_human"
+gem "verify_human"
 ```
 
 ## Usage
@@ -82,13 +82,7 @@ Bug reports are welcome as [GitHub issues](https://github.com/killbridge/verify_
 
 ## Releasing
 
-Bump `VerifyHuman::VERSION`, tag `vX.Y.Z`, push the tag. GitHub Actions publishes to GitHub Packages, where my own apps consume it via:
-
-```ruby
-source "https://rubygems.pkg.github.com/killbridge" do
-  gem "verify_human"
-end
-```
+Bump `VerifyHuman::VERSION`, tag `vX.Y.Z`, push the tag. GitHub Actions publishes to rubygems.org as a trusted publisher, so no API key is stored anywhere.
 
 ## License
 

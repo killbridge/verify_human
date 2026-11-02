@@ -8,7 +8,8 @@ Gem::Specification.new do |spec|
   spec.description = "verify_human class macro, human_verification_tag view helper, and a Turbo-safe Stimulus controller. Interaction-only Managed widgets by default, optional invisible-mode widgets, fail-open verification with tight timeouts, per-form action enforcement."
   spec.homepage = "https://github.com/killbridge/verify_human"
   spec.license = "MIT"
-  spec.metadata["allowed_push_host"] = "https://rubygems.pkg.github.com/killbridge"
+  spec.metadata["source_code_uri"] = "https://github.com/killbridge/verify_human"
+  spec.metadata["bug_tracker_uri"] = "https://github.com/killbridge/verify_human/issues"
   spec.required_ruby_version = ">= 3.2"
 
   spec.files = Dir["{app,config,lib}/**/*", "README.md", "LICENSE"]

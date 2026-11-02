@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: read
-  packages: write
+  id-token: write
 
 jobs:
   release:
@@ -16,12 +16,8 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.4"
-      - name: Build and publish to GitHub Packages
+      - uses: rubygems/configure-rubygems-credentials@v2.1.0
+      - name: Build and publish to rubygems.org
         run: |
           gem build verify_human.gemspec
-          mkdir -p ~/.gem
-          printf -- "---\n:github: Bearer ${GITHUB_TOKEN}\n" > ~/.gem/credentials
-          chmod 0600 ~/.gem/credentials
-          gem push --key github --host https://rubygems.pkg.github.com/killbridge verify_human-*.gem
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gem push verify_human-*.gem
